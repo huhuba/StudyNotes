@@ -1,0 +1,1 @@
+http://git.mashibing.com/xinxin/spring-cloud-alibaba

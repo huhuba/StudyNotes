@@ -1,0 +1,14 @@
+2021-03-08 16:06:54 [main] DEBUG LogFactory:105 - Logging initialized using 'class org.apache.ibatis.logging.log4j2.Log4j2Impl' adapter.
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:353 - PooledDataSource forcefully closed/removed all connections.
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:353 - PooledDataSource forcefully closed/removed all connections.
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:353 - PooledDataSource forcefully closed/removed all connections.
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:353 - PooledDataSource forcefully closed/removed all connections.
+2021-03-08 16:06:54 [main] DEBUG JdbcTransaction:136 - Opening JDBC Connection
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:424 - Created connection 26757919.
+2021-03-08 16:06:54 [main] DEBUG JdbcTransaction:100 - Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@1984b1f]
+2021-03-08 16:06:54 [main] DEBUG findAll:143 - ==>  Preparing: select * from dept 
+2021-03-08 16:06:54 [main] DEBUG findAll:143 - ==> Parameters: 
+2021-03-08 16:06:54 [main] DEBUG findAll:143 - <==      Total: 4
+2021-03-08 16:06:54 [main] DEBUG JdbcTransaction:122 - Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@1984b1f]
+2021-03-08 16:06:54 [main] DEBUG JdbcTransaction:90 - Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@1984b1f]
+2021-03-08 16:06:54 [main] DEBUG PooledDataSource:381 - Returned connection 26757919 to pool.

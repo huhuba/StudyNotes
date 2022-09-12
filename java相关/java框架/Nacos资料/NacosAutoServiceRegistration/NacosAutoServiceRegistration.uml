@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.alibaba.cloud.nacos.registry.NacosAutoServiceRegistration</OriginalElement>
+  <nodes>
+    <node x="181.79411764705884" y="0.0">org.springframework.context.ApplicationEvent</node>
+    <node x="375.79411764705884" y="0.0">java.util.EventListener</node>
+    <node x="0.0" y="78.0">org.springframework.cloud.client.serviceregistry.AutoServiceRegistration</node>
+    <node x="198.29411764705884" y="156.0">org.springframework.cloud.client.serviceregistry.AbstractAutoServiceRegistration</node>
+    <node x="570.0441176470588" y="0.0">org.springframework.beans.factory.Aware</node>
+    <node x="248.0" y="78.0">org.springframework.context.ApplicationListener</node>
+    <node x="499.04411764705884" y="78.0">org.springframework.context.ApplicationContextAware</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.cloud.client.serviceregistry.AbstractAutoServiceRegistration" target="org.springframework.context.ApplicationContextAware" relationship="REALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="359.29411764705884" y="131.0" />
+      <point x="618.0441176470588" y="131.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.springframework.context.ApplicationListener" target="org.springframework.context.ApplicationEvent" relationship="DEPENDENCY">
+      <point x="-55.5" y="-14.0" />
+      <point x="303.5" y="53.0" />
+      <point x="268.79411764705884" y="53.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.springframework.context.ApplicationContextAware" target="org.springframework.beans.factory.Aware" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.springframework.cloud.client.serviceregistry.AbstractAutoServiceRegistration" target="org.springframework.cloud.client.serviceregistry.AutoServiceRegistration" relationship="REALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="359.29411764705884" y="131.0" />
+      <point x="114.0" y="131.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.springframework.cloud.client.serviceregistry.AbstractAutoServiceRegistration" target="org.springframework.context.ApplicationListener" relationship="REALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.springframework.context.ApplicationListener" target="java.util.EventListener" relationship="INTERFACE_GENERALIZATION">
+      <point x="55.5" y="-14.0" />
+      <point x="414.5" y="53.0" />
+      <point x="449.79411764705884" y="53.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="分层" zoom="1.0" showDependencies="false" x="369.0" y="92.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

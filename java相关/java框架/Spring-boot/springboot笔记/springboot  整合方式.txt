@@ -1,0 +1,10 @@
+Spring Boot整合Web层技术
+
+1：整合Servlet方式一
+	1.1通过注解扫描完成Servlet组件的注册
+2：整合Servlet 方式二
+	通过方法完成Servlet组件注册
+3：整合Filter方式二
+	通过注解扫描完成Filter组件注册
+	通过方法完成Filter组件注册
+4:整合Lisenter 方式二

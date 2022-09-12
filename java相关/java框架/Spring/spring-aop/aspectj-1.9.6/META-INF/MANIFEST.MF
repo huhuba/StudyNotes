@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: aclement
+Build-Jdk: 1.8.0_241
+Main-Class: $installer$.org.aspectj.Main
+

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: aclement
+Build-Jdk: 1.8.0_241
+Automatic-Module-Name: org.aspectj.runtime
+
+Name: org/aspectj/lang/
+Implementation-Vendor: https://www.eclipse.org/aspectj/
+Implementation-Title: org.aspectj.runtime
+Specification-Version: 1.9.6
+Bundle-Version: 1.9.6
+Bundle-Copyright: (C) Copyright 1999-2001 Xerox Corporation,
+ 												2002 Palo Alto Research Center, Incorporated (PARC),
+ 												2003-2019 Contributors. All Rights Reserved
+Implementation-Version: 1.9.6
+Specification-Title: AspectJ Runtime Classes
+Bundle-Name: AspectJ Runtime
+Specification-Vendor: https://www.eclipse.org/aspectj/
+

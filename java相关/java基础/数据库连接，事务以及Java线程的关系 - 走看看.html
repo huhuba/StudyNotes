@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://t.zoukankan.com/shenjianxin-p-15378866.html -->
+<html lang="zh-CN" style="--olcb-folder-code-block-max-height:80vh;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Required meta tags -->
+  <script src="./数据库连接，事务以及Java线程的关系 - 走看看_files/push.js.下载"></script><script src="./数据库连接，事务以及Java线程的关系 - 走看看_files/hm.js.下载"></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?085ef535298f92786270c5cefcbf1c0b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/x-icon">
+  <meta name="referrer" content="no-referrer">
+
+  <!-- 引入博客园电脑端css -->
+  <style>#home :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([class*="language-"]):not([highlighted]):not(.hljs):not([class*="brush:"]), :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([class*="language-"]):not([highlighted]):not(.hljs):not([class*="brush:"]) {background: rgba(0, 0, 0, 0);
+        padding: 0px;
+        border: 0px none rgb(0, 0, 0);
+        border-radius: 0px;
+        border-color: transparent;
+        color: rgb(0, 0, 0);
+        font-family: monospace;
+        font-size: 13px</style><link rel="stylesheet" href="./数据库连接，事务以及Java线程的关系 - 走看看_files/blog-common.min.css">
+
+  <!-- 响应式 meta标签 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>数据库连接，事务以及Java线程的关系 - 走看看</title>
+  <meta name="keywords" content="数据库连接，事务以及Java线程的关系">
+  <meta name="description" content="0. 前言 Spring作为Java框架王者，当前已经是基础容器框架的实际标准。Spring 除了提供了&amp;#160;IoC、AOP特性外，还有一个极其核心和重要的特性：数据库事务。事务管理涉及到的技术">
+  <link rel="stylesheet" href="./数据库连接，事务以及Java线程的关系 - 走看看_files/details.css">
+<style>.medium-zoom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 300ms;
+  will-change: opacity;
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+  cursor: pointer;
+  cursor: zoom-out;
+  opacity: 1;
+}
+
+.medium-zoom-image {
+  cursor: pointer;
+  cursor: zoom-in;
+  /*
+    The `transition` is marked as "!important" for the animation to happen
+    even though it's overriden by another inline `transition` style attribute.
+
+    This is problematic with frameworks that generate inline styles on their
+    images (e.g. Gatsby).
+
+    See https://github.com/francoischalifour/medium-zoom/issues/110
+   */
+  transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.medium-zoom-image--hidden {
+  visibility: hidden;
+}
+
+.medium-zoom-image--opened {
+  position: relative;
+  cursor: pointer;
+  cursor: zoom-out;
+  will-change: transform;
+}
+</style><link id="highlighter-theme-cnblogs" href="./数据库连接，事务以及Java线程的关系 - 走看看_files/cnblogs.css" rel="stylesheet" type="text/css"><script id="hljs-script" src="./数据库连接，事务以及Java线程的关系 - 走看看_files/highlight.min.js.下载" type="text/javascript" async=""></script></head>
+<body>
+
+  <!-- 引入头部导航 -->
+  
+  <div style="width: 100%;margin: auto;">
+
+      <div style="width:100%;height: 55px;background-color: #343434;">
+          <div class="kd" style="margin: auto;">
+            <div style="width: 40px;float: left;text-align: center;line-height: 55px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclude" viewBox="0 0 16 16" style="color: #fff;padding-right: 10px;padding-top: 14px;">
+                  <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"></path>
+            </svg>
+            </div>
+          </div>
+            <div style="float: left;text-align: center;line-height: 55px;">
+              <a href="http://t.zoukankan.com/" style="font-size:20px;color:#fff;"> zoukankan</a>
+              <span style="color: #999;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;&nbsp;css&nbsp;&nbsp;js&nbsp;&nbsp;c++&nbsp;&nbsp;java</span>
+            </div> 
+            <div style="clear: both;"></div>  
+        </div>
+
+      
+      <div class="kd" style="margin: auto;margin-top: 10px;">
+        <div class="kd" style="margin:auto;">
+
+          <div class="left-kd" style="border: 1px solid #dfdfdf;border-radius: 3px 3px 3px 3px;margin: auto;float: left;margin-right: 30px;margin-bottom: 10px;">
+
+            <ul style="padding-inline-start: 0px;">
+              <li style="margin:15px;">
+                <h1>数据库连接，事务以及Java线程的关系</h1>
+                <div style="border: 1px solid #dfdfdf;border-top:none;"></div>
+                <span class="pre-scrollable"><div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+<p data-reader-unique-id="1">0. 前言</p>
+<p data-reader-unique-id="3">Spring作为Java框架王者，当前已经是基础容器框架的实际标准。Spring 除了提供了&nbsp;<code data-reader-unique-id="4">IoC</code>、<code data-reader-unique-id="5">AOP</code>特性外，还有一个极其核心和重要的特性：<code data-reader-unique-id="6">数据库事务</code>。事务管理涉及到的技术点比较多，想完全理解需要花费一定的时间，本系列《Spring设计思想-事务篇》将通过如下几个方面来阐述Spring的<code data-reader-unique-id="7">数据库事务</code>：</p>
+<ul data-reader-unique-id="8">
+<li data-reader-unique-id="9">数据库连接<code data-reader-unique-id="10">java.sql.Connection</code>的特性、事务表示、以及和Java线程之间的天然关系；</li>
+<li data-reader-unique-id="11">数据库的隔离级别和传播机制</li>
+<li data-reader-unique-id="12">Spring 基于事务和连接池的抽象和设计</li>
+<li data-reader-unique-id="13">Spring 事务的实现原理</li>
+</ul>
+<p data-reader-unique-id="14">而本文作为**《Spring设计思想-事务篇》** 的开篇，将深入<code data-reader-unique-id="15">数据库连接</code>(<code data-reader-unique-id="16">java.sql.Connection</code>对象)的特性，事务表示，以及和Java线程之间的天然关系。懂得了底层的基本原理，在这些基础的概念之上再来理解<code data-reader-unique-id="17">Spring 事务</code>，就会容易很多。</p>
+<hr data-reader-unique-id="19">
+<h3 data-reader-unique-id="20">1. Java事务控制的基本单位 ：&nbsp;<code data-reader-unique-id="21">java.sql.Conection</code></h3>
+<p data-reader-unique-id="22">在Java中，使用了<code data-reader-unique-id="23">java.sql.Connection</code>实例来表示和数据库的一个连接，通信的方式目前基本上采用的是TCP/IP 连接方式。通过对<code data-reader-unique-id="24">Connection</code>进行一系列的事务控制。</p>
+<div data-reader-unique-id="26"><span data-reader-unique-id="27"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/gjkjmoy8k9.png" alt="" class="medium-zoom-image" data-reader-unique-id="28"></span></div>
+<blockquote data-reader-unique-id="29">
+<p data-reader-unique-id="30">可能有人有如下的想法： 既然<code data-reader-unique-id="31">java.sql.Connection</code>可以完成事务操作，那我在写代码的时候，直接创建一个然后使用不就行了？ 然而在事实上，我们并不能这么做，这是因为，<code data-reader-unique-id="32">java.sql.Connection</code>和数据库之间有非常紧密的关系，其数据库的资源是很有限的。</p>
+</blockquote>
+<h4 data-reader-unique-id="33">1.1&nbsp;<code data-reader-unique-id="34">java.sql.Connection</code>-有限的系统资源</h4>
+<p data-reader-unique-id="35">应用程序和数据库之间建立&nbsp;<code data-reader-unique-id="36">Connection</code>连接，则数据库机器会为之分配一定的线程资源来维护这种连接，连接数越多，消耗数据库的线程资源也就越多；另外不同的connection实例之间，可能会操作相同的表数据，也就是高并发，为了支持数据库对ACID特性的支持，数据库又会牺牲更多的资源。简单地来说，建立<code data-reader-unique-id="37">Connection</code>连接，会消耗数据库系统的如下资源：</p>
+<div data-reader-unique-id="38">
+<div class="scrollable">
+<div class="table-wrapper">
+<table data-reader-unique-id="39">
+<thead data-reader-unique-id="40">
+<tr data-reader-unique-id="41"><th data-reader-unique-id="42">
+<div data-reader-unique-id="43">
+<p data-reader-unique-id="44">资源</p>
+</div>
+</th><th data-reader-unique-id="45">
+<div data-reader-unique-id="46">
+<p data-reader-unique-id="47">说明</p>
+</div>
+</th></tr>
+</thead>
+<tbody data-reader-unique-id="48">
+<tr data-reader-unique-id="49">
+<td data-reader-unique-id="50">
+<div data-reader-unique-id="51">
+<p data-reader-unique-id="52">线程数</p>
+</div>
+</td>
+<td data-reader-unique-id="53">
+<div data-reader-unique-id="54">
+<p data-reader-unique-id="55">线程越多，线程的上下文切换会越频繁，会影响其处理能力</p>
+</div>
+</td>
+</tr>
+<tr data-reader-unique-id="56">
+<td data-reader-unique-id="57">
+<div data-reader-unique-id="58">
+<p data-reader-unique-id="59">创建Connection的开销</p>
+</div>
+</td>
+<td data-reader-unique-id="60">
+<div data-reader-unique-id="61">
+<p data-reader-unique-id="62">由于Connection负责和数据库之间的通信，在创建环节会做大量的初始化 ，创建过程所需时间和内存资源上都有一定的开销</p>
+</div>
+</td>
+</tr>
+<tr data-reader-unique-id="63">
+<td data-reader-unique-id="64">
+<div data-reader-unique-id="65">
+<p data-reader-unique-id="66">内存资源</p>
+</div>
+</td>
+<td data-reader-unique-id="67">
+<div data-reader-unique-id="68">
+<p data-reader-unique-id="69">为了维护Connection对象会消耗一定的内存</p>
+</div>
+</td>
+</tr>
+<tr data-reader-unique-id="70">
+<td data-reader-unique-id="71">
+<div data-reader-unique-id="72">
+<p data-reader-unique-id="73">锁占用</p>
+</div>
+</td>
+<td data-reader-unique-id="74">
+<div data-reader-unique-id="75">
+<p data-reader-unique-id="76">在高并发模式下，不同的Connection可能会操作相同的表数据，就会存在锁的情况，数据库为了维护这种锁会有不少的内存开销</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p data-reader-unique-id="77">上述的几种资源会限制数据库的链接数和处理性能。</p>
+<blockquote data-reader-unique-id="78">
+<p data-reader-unique-id="79">结论： 数据库资源是比较宝贵的有限资源，当应用程序有数据库连接需求过大时，很容易会达到数据库的连接并发瓶颈。 关于创建Connection过程的开销，可以参考&nbsp;<a href="https://blog.csdn.net/luanlouis/article/details/37671851" rel="nofollow noopener noreferrer" target="_blank" data-from="10680" data-reader-unique-id="80">《深入理解mybatis原理》 Mybatis数据源与连接池</a>&nbsp;第五节 “为什么要使用连接池？”</p>
+</blockquote>
+<h4 data-reader-unique-id="81">1.2 数据库最多支持多少Connection连接？</h4>
+<p data-reader-unique-id="82">以 MYSQL为例，可以通过如下语句查询数据库的最大支持情况：</p>
+<div class="scrollable extendsBeyondTextColumn">
+<pre data-reader-unique-id="83"><span data-reader-unique-id="84">-- 查看当前数据库最多支持多少数据库连接
+show variables like <span data-reader-unique-id="85">'%max_connections%'<span data-reader-unique-id="86">;
+<span data-reader-unique-id="87">-- 设置当前运行时mysql的最大连接数，服务重启连接数将还原
+<span data-reader-unique-id="88">set GLOBAL max_connections <span data-reader-unique-id="89">= <span data-reader-unique-id="90">200<span data-reader-unique-id="91">;
+<span data-reader-unique-id="92">-- 修改 my<span data-reader-unique-id="93">.ini 或者my<span data-reader-unique-id="94">.cnf 配置文件
+max_connections <span data-reader-unique-id="95">= <span data-reader-unique-id="96">200<span data-reader-unique-id="97">;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre>
+</div>
+<blockquote data-reader-unique-id="98">
+<p data-reader-unique-id="99">数据库的连接数设置的越大越好吗？ 肯定不是的，连接数越大，对使用大量的线程维护，伴随着大量的线程上下文切换，并且与此同时，连接数越多，表数据锁使用的概率会更大，反而会导致整体数据库的性能下降。具体的设置范围，应当具体的业务背景来调优。</p>
+</blockquote>
+<hr data-reader-unique-id="101">
+<h3 data-reader-unique-id="102">2.&nbsp;<code data-reader-unique-id="103">java.sql.Connection</code>对象本身的特性— 线性操作和可以不限次数执行SQL事务操作</h3>
+<p data-reader-unique-id="104"><code data-reader-unique-id="105">java.sql.Connection</code>&nbsp;本身有如下两个比较关键的特性：</p>
+<hr data-reader-unique-id="107">
+<ul data-reader-unique-id="108">
+<li data-reader-unique-id="109"><strong data-reader-unique-id="110">线性操作：即在操作的时序上，事务和事务之间的执行是线性排开依次执行的</strong></li>
+<li data-reader-unique-id="111"><strong data-reader-unique-id="112">当建立了&nbsp;<code data-reader-unique-id="113">java.sql.Connection</code>&nbsp;连接后，可以不限次数执行事务SQL请求</strong>&nbsp;由于<code data-reader-unique-id="114">Connection</code>对象的通信值基于TCP/IP协议的，当初始化后在手动关闭之前和数据库保持心跳存活连接，所以，可以使用<code data-reader-unique-id="115">Connection</code>对象执行不限次数的SQL语句请求，包括事务请求&nbsp;<strong data-reader-unique-id="116"><em data-reader-unique-id="117">注意！！</em></strong><em data-reader-unique-id="118">&nbsp;这个看似比较简单的表述，在实际使用过程中非常重要，数据库连接池就是基于此特性建立的</em></li>
+</ul>
+<hr data-reader-unique-id="120">
+<p data-reader-unique-id="121">如下图所示：</p>
+<div data-reader-unique-id="123"><span data-reader-unique-id="124"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/a1yiu5d3wu.png" alt="" class="medium-zoom-image" data-reader-unique-id="125"></span></div>
+<p data-reader-unique-id="126">有上图所示，对于java.sql.Connection对象的操作，一般会遵循序列化的事务操作模式，即：<strong data-reader-unique-id="127">一个新事务的开启，必须在上一个事务完成之后(如果存在的话)</strong>；换成另外一种表述方式就是：对connection的操作必须是<strong data-reader-unique-id="128">线性</strong>的。</p>
+<h3 data-reader-unique-id="129">3. 如何在Java中实现对<code data-reader-unique-id="130">java.sql.Connection</code>对象的线性操作？</h3>
+<h3 data-reader-unique-id="131">3.1. 一个线程的整个生命周期中，可以独占一个<code data-reader-unique-id="132">java.sql.Connection</code>&nbsp;连接吗？</h3>
+<p data-reader-unique-id="133">Java中，当然一个线程可以在整个生命周期独占一个<code data-reader-unique-id="134">java.sql.Connection</code>，使用该对象完成各种数据库操作，因为一个线程内的所有操作都是同步的和线性的。然而，在实际的项目中，并不会这样做，原因有两个：</p>
+<ul data-reader-unique-id="135">
+<li data-reader-unique-id="136"><strong data-reader-unique-id="137">Java中的线程数量可能远超数据库连接数量，会出现<code data-reader-unique-id="138">僧多粥少</code>的情况</strong>&nbsp;如上面章节<code data-reader-unique-id="139">1.2</code>中提到的，一个MYSQL服务器的最大连接数量是有上限的，例子中提到的就是上限<code data-reader-unique-id="140">200</code>;而在稍微大型一点的Java WEB项目中，光用户的HTTP请求线程数，就不止<code data-reader-unique-id="141">200</code>个，这样就会出现部分线程无法获取到数据库连接，进而无法完成业务操作。</li>
+<li data-reader-unique-id="142"><strong data-reader-unique-id="143">Java线程在工作过程中，真正访问<code data-reader-unique-id="144">JDBC数据库连接</code>所占用的时间比例很短</strong>&nbsp;线程在接收到用户请求后，有很多业务逻辑需要处理：比如<code data-reader-unique-id="145">参数校验</code>，<code data-reader-unique-id="146">权限验证</code>，<code data-reader-unique-id="147">数值计算</code>，然后<code data-reader-unique-id="148">持久化结果</code>；其中可能只有<code data-reader-unique-id="149">持久化结果</code>环节需要访问<code data-reader-unique-id="150">JDBC数据库连接</code>,其余的时间范围内，<code data-reader-unique-id="151">JDBC数据库连接</code>&nbsp;都是空闲状态。<strong data-reader-unique-id="152">换言之，如果线程整个生命周期中独占JDBC数据库连接，那么，真个连接池的空闲率很高，使用率很低。</strong>&nbsp;综上所述，Java线程和<code data-reader-unique-id="153">JDBC数据库连接</code>的关系如下：</li>
+</ul>
+<div data-reader-unique-id="155"><span data-reader-unique-id="156"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/8zmjesaps4.png" alt="" class="extendsBeyondTextColumn medium-zoom-image" data-reader-unique-id="157"></span></div>
+<blockquote data-reader-unique-id="158">
+<p data-reader-unique-id="159"><strong data-reader-unique-id="160">结论：</strong>&nbsp;结合上述的两个症结，为了提高<code data-reader-unique-id="161">JDBC数据库连接</code>的使用效率，目前普遍的解决方案是：<strong data-reader-unique-id="162">当线程需要做数据库操作时，才会真正请求获取<code data-reader-unique-id="163">JDBC数据库连接</code>,线程使用完了之后，立即释放，被释放的<code data-reader-unique-id="164">JDBC数据库连接</code>等待下次分配使用</strong>&nbsp;基于这个结论，会衍生两个问题需要解决：</p>
+</blockquote>
+<ul data-reader-unique-id="165">
+<li data-reader-unique-id="166">Java多线程访问同一个<code data-reader-unique-id="167">java.sql.Connection</code>会有什么问题？如何解决？</li>
+<li data-reader-unique-id="168"><code data-reader-unique-id="169">JDBC数据库连接</code>&nbsp;如何管理和分配？(这个解决方案是：连接池，后面章节会详细阐述)</li>
+</ul>
+<p data-reader-unique-id="170"><strong data-reader-unique-id="171">通过上述的图示中，可以看到，一个<code data-reader-unique-id="172">数据库连接对象</code>,在线程进行事务操作时，线程在此期间内是独占<code data-reader-unique-id="173">数据库连接对象</code>的，也就是说，在事务进行期间，有一个非常重要的特性，就是：<code data-reader-unique-id="174">数据库连接对象</code>可以吸附在<code data-reader-unique-id="175">线程</code>上，我把这种特性称之为<code data-reader-unique-id="176">事务对象的线程吸附性</code>&nbsp;这种特性，正是由于这种特性，在Spring实现上，使用了基于线程的<code data-reader-unique-id="177">ThreadLocal</code>来表示这种线程依附行为</strong>。</p>
+<hr data-reader-unique-id="179">
+<h4 data-reader-unique-id="180">3.1 Java多线程访问同一个<code data-reader-unique-id="181">java.sql.Connection</code>会有什么问题？</h4>
+<p data-reader-unique-id="182">Java多线程访问同一个<code data-reader-unique-id="183">java.sql.Connection</code>会导致事务错乱。例如：现有线程<code data-reader-unique-id="184">thread #1</code>&nbsp;和线程<code data-reader-unique-id="185">thread #2</code>,两个线程会有如下数据库操作:</p>
+<blockquote data-reader-unique-id="186">
+<p data-reader-unique-id="187"><em data-reader-unique-id="188"><strong data-reader-unique-id="189">thread #1</strong></em>:&nbsp;<code data-reader-unique-id="190">update xxx</code>;&nbsp;&nbsp;<code data-reader-unique-id="191">update yyy</code>;&nbsp;&nbsp;<code data-reader-unique-id="192">commit</code>;&nbsp;<em data-reader-unique-id="193"><strong data-reader-unique-id="194">thread #2</strong></em>:&nbsp;<code data-reader-unique-id="195">delete zzz</code>;&nbsp;&nbsp;<code data-reader-unique-id="196">insert ttt</code>;&nbsp;<code data-reader-unique-id="197">rollback</code>; 语句执行的序列在<code data-reader-unique-id="198">connection</code>对象上，可能表现成了：&nbsp;<code data-reader-unique-id="199">delete zzz</code>;&nbsp;<code data-reader-unique-id="200">update xxx</code>;&nbsp;<code data-reader-unique-id="201">insert ttt</code>;&nbsp;<code data-reader-unique-id="202">rollback</code>;&nbsp;<code data-reader-unique-id="203">update yyy</code>;&nbsp;&nbsp;<code data-reader-unique-id="204">commit</code>;</p>
+</blockquote>
+<div data-reader-unique-id="206"><span data-reader-unique-id="207"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/xrkjggk0pf.png" alt="" class="extendsBeyondTextColumn medium-zoom-image" data-reader-unique-id="208"></span></div>
+<p data-reader-unique-id="209">有上图可以看到，<strong data-reader-unique-id="210">Thread #1的请求 update xxx 被thread #2回退掉，导致语句丢失，thread #1的事务不完整</strong></p>
+<h4 data-reader-unique-id="211">3.2 Java多线程访问同一个<code data-reader-unique-id="212">java.sql.Connection</code>&nbsp;的原则</h4>
+<p data-reader-unique-id="213">解决上述事务不完整的问题，从本质上而言，就是多线程访互斥资源的方法。多线程互斥访问资源的方式在Java中的实现方式有很多，如下使用有一个最简单的使用&nbsp;<code data-reader-unique-id="214">synchronized</code>&nbsp;关键字来实现 :</p>
+<div class="scrollable extendsBeyondTextColumn">
+<pre data-reader-unique-id="215">java<span data-reader-unique-id="216">.sql<span data-reader-unique-id="217">.Connection sharedConnection <span data-reader-unique-id="218">= <span data-reader-unique-id="219">&lt;创建流程<span data-reader-unique-id="220">&gt;
+## thread #<span data-reader-unique-id="221">1 的业务伪代码：
+
+<span data-reader-unique-id="222">synchronized<span data-reader-unique-id="223">(sharedConnection<span data-reader-unique-id="224">)<span data-reader-unique-id="225">{
+         <span data-reader-unique-id="226">`update xxx`<span data-reader-unique-id="228">;    
+         <span data-reader-unique-id="229">`update yyy`<span data-reader-unique-id="231">;  
+         <span data-reader-unique-id="232">`commit`<span data-reader-unique-id="234">;
+<span data-reader-unique-id="235">}
+## thread #<span data-reader-unique-id="236">2 的业务伪代码：
+
+<span data-reader-unique-id="237">synchronized<span data-reader-unique-id="238">(sharedConnection<span data-reader-unique-id="239">)<span data-reader-unique-id="240">{
+       <span data-reader-unique-id="241">`delete zzz`<span data-reader-unique-id="243">;   
+       <span data-reader-unique-id="244">`insert ttt`<span data-reader-unique-id="246">; 
+       <span data-reader-unique-id="247">`rollback`<span data-reader-unique-id="249">;
+<span data-reader-unique-id="250">}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre>
+</div>
+<p data-reader-unique-id="251">上述的伪代码在执行上能够体现成如下的形式，即同一时间内，只有一个线程占用<code data-reader-unique-id="252">Connection</code>对象。 假设<code data-reader-unique-id="253">Thread #2</code>先获取到了Connection锁，如下图所示：</p>
+<div data-reader-unique-id="255"><span data-reader-unique-id="256"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/zkzmgq7ofy.png" alt="" class="extendsBeyondTextColumn medium-zoom-image" data-reader-unique-id="257"></span></div>
+<blockquote data-reader-unique-id="258">
+<p data-reader-unique-id="259"><strong data-reader-unique-id="260">存在的问题</strong>&nbsp;那上述的流程还有有点问题：假如&nbsp;<code data-reader-unique-id="261">thread #2</code>&nbsp;在执行语句&nbsp;<code data-reader-unique-id="262">delete zzz</code>,<code data-reader-unique-id="263">insert ttt</code>,<code data-reader-unique-id="264">rollback</code>&nbsp;的过程中，在<code data-reader-unique-id="265">insert ttt</code>之前有一段业务代码抛出了异常，导致语句只执行到了&nbsp;<code data-reader-unique-id="266">delete zzz</code>，这会导致在connection对象上有一个尚未提交的<code data-reader-unique-id="267">delete zzz</code>请求; 当<code data-reader-unique-id="268">thread #1</code>拿到了<code data-reader-unique-id="269">connection</code>&nbsp;对象的锁之后，接着执行&nbsp;<code data-reader-unique-id="270">update xxx</code>;&nbsp;<code data-reader-unique-id="271">update yyy</code>;&nbsp;&nbsp;<code data-reader-unique-id="272">commit</code>; 即:在两个线程执行完了之后，对connection的操作为<code data-reader-unique-id="273">delete zzz</code>;&nbsp;<code data-reader-unique-id="274">update xxx</code>;&nbsp;<code data-reader-unique-id="275">update yyy</code>;&nbsp;&nbsp;<code data-reader-unique-id="276">commit</code>; 示例如下：</p>
+</blockquote>
+<div data-reader-unique-id="278"><span data-reader-unique-id="279"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/njj0xd7jbd.png" alt="" class="extendsBeyondTextColumn medium-zoom-image" data-reader-unique-id="280"></span></div>
+<p data-reader-unique-id="281"><strong data-reader-unique-id="282">解决方案</strong>：&nbsp;<em data-reader-unique-id="283">确保每个线程在使用Connection对象时，最终要明确对Connection做<code data-reader-unique-id="284">commit</code>&nbsp;或者<code data-reader-unique-id="285">rollback</code></em>。 调整后的伪代码如下所示：</p>
+<div class="scrollable extendsBeyondTextColumn">
+<pre data-reader-unique-id="286">java<span data-reader-unique-id="287">.sql<span data-reader-unique-id="288">.Connection sharedConnection <span data-reader-unique-id="289">= <span data-reader-unique-id="290">&lt;创建流程<span data-reader-unique-id="291">&gt;
+## thread #<span data-reader-unique-id="292">1 的业务伪代码：
+
+<span data-reader-unique-id="293">synchronized<span data-reader-unique-id="294">(sharedConnection<span data-reader-unique-id="295">)<span data-reader-unique-id="296">{
+       <span data-reader-unique-id="297">try<span data-reader-unique-id="298">{
+         <span data-reader-unique-id="299">` update xxx`<span data-reader-unique-id="301">;    
+         <span data-reader-unique-id="302">`update yyy`<span data-reader-unique-id="304">;  
+         <span data-reader-unique-id="305">`commit`<span data-reader-unique-id="307">;
+       <span data-reader-unique-id="308">} <span data-reader-unique-id="309">catch<span data-reader-unique-id="310">(Exception e<span data-reader-unique-id="311">)<span data-reader-unique-id="312">{
+          <span data-reader-unique-id="313">`rollback`<span data-reader-unique-id="315">; 
+      <span data-reader-unique-id="316">}
+<span data-reader-unique-id="317">}
+## thread #<span data-reader-unique-id="318">2 的业务伪代码：
+
+<span data-reader-unique-id="319">synchronized<span data-reader-unique-id="320">(sharedConnection<span data-reader-unique-id="321">)<span data-reader-unique-id="322">{
+       <span data-reader-unique-id="323">try<span data-reader-unique-id="324">{
+       <span data-reader-unique-id="325">`delete zzz`<span data-reader-unique-id="327">;   
+       <span data-reader-unique-id="328">`insert ttt`<span data-reader-unique-id="330">; 
+       <span data-reader-unique-id="331">`rollback`<span data-reader-unique-id="333">;
+       <span data-reader-unique-id="334">} <span data-reader-unique-id="335">catch<span data-reader-unique-id="336">(Exception e<span data-reader-unique-id="337">)<span data-reader-unique-id="338">{
+          <span data-reader-unique-id="339">`rollback`<span data-reader-unique-id="341">; 
+      <span data-reader-unique-id="342">}
+<span data-reader-unique-id="343">}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></pre>
+</div>
+<p data-reader-unique-id="344">综上所述，解决多个线程访问同一个<code data-reader-unique-id="345">Connection</code>对象时，必须遵循两个基本原则：</p>
+<ul data-reader-unique-id="346">
+<li data-reader-unique-id="347"><strong data-reader-unique-id="348">以资源互斥的方式访问<code data-reader-unique-id="349">Connection</code>对象</strong>；</li>
+<li data-reader-unique-id="350"><strong data-reader-unique-id="351">在线程执行结束时，应当最终及时提交(<code data-reader-unique-id="352">commit</code>)或回滚(<code data-reader-unique-id="353">rollback</code>)对<code data-reader-unique-id="354">Connection</code>的影响；不允许存在尚未被提交或者回滚的语句</strong>。</li>
+</ul>
+<hr data-reader-unique-id="356">
+<h3 data-reader-unique-id="357">4. 当一个事务结束，<code data-reader-unique-id="358">java.sql.Connection</code>实例有必要释放销毁吗？</h3>
+<p data-reader-unique-id="359">正常情况下，我们在写业务代码时，会有类似的流程：</p>
+<ol class="code-block" data-reader-unique-id="360">
+<li data-reader-unique-id="361">创建一个<code data-reader-unique-id="362">java.sql.Connection</code>实例；</li>
+<li data-reader-unique-id="363">基于<code data-reader-unique-id="364">java.sql.Connection</code>&nbsp;做相关事务提交操作</li>
+<li data-reader-unique-id="365">销毁<code data-reader-unique-id="366">java.sql.Connection</code>&nbsp;实例</li>
+</ol>
+<p data-reader-unique-id="367">而实际上，在第三步骤，是完全没有必要销毁<code data-reader-unique-id="368">java.sql.Connection</code>&nbsp;实例的，这是因为，在第二章节我们介绍的Connection的性质：<strong data-reader-unique-id="369">当建立了&nbsp;</strong><code data-reader-unique-id="370"><strong data-reader-unique-id="371">java.sql.Connection</strong></code><strong data-reader-unique-id="372">&nbsp;连接后，可以不限次数执行事务SQL请求</strong>, 也就是说，当此次事务结束后，我可以紧接着使用这个<code data-reader-unique-id="373">Connection</code>对象开启下一个事务。 另外，由于创建一个<code data-reader-unique-id="374">java.sql.Connection</code>实例的代价本身就比较大，笔者测试的数据库建立Connection的时间，一般都在至少0.1s级别，如果每一个事务在执行的时候，都要花费额外的0.1s 来做连接，会严重影响当前服务的性能和吞吐量。 结合上面的叙述，目前的做法，在完成事务后，并不会销毁<code data-reader-unique-id="375">java.sql.Connection</code>实例，而是将其回收到<strong data-reader-unique-id="376">连接池</strong>中。</p>
+<hr data-reader-unique-id="378">
+<h3 data-reader-unique-id="379">5. 连接池 ---- 统一管理<code data-reader-unique-id="380">java.sql.Connection</code>的容器</h3>
+<div data-reader-unique-id="382"><span data-reader-unique-id="383"><img src="./数据库连接，事务以及Java线程的关系 - 走看看_files/5qjewumkbw.png" alt="" class="extendsBeyondTextColumn medium-zoom-image" data-reader-unique-id="384"></span></div>
+<p data-reader-unique-id="385">一般连接池需要如下几个功能：</p>
+<ol data-reader-unique-id="386">
+<li data-reader-unique-id="387">管理一批Connection对象，一般会有连接数上限设置；</li>
+<li data-reader-unique-id="388">为每一个获取Connection请求做资源分配；如果资源不足，设置等待时间</li>
+<li data-reader-unique-id="389">根据实际Connection的使用情况，为了提高系统之间的利用率，动态调整连接池中Connection对象的数量，如应用实际使用的连接数比较少时，会自动关闭掉一些处于无用状态的连接；当请求量大的时候，再动态创建。</li>
+</ol>
+<p data-reader-unique-id="390">目前比较流行的几个连接池解决方案有：HikariCP, 阿里的Druid, apache的DBCP等，具体的实现不是本文的重点，有兴趣的同学可以研究下。</p>
+<p data-reader-unique-id="390">&nbsp;</p>
+<p data-reader-unique-id="390">来源：<a href="https://blog.csdn.net/luanlouis" rel="nofollow noopener noreferrer" target="_blank" data-from="10680" data-reader-unique-id="407">亦山札记</a>&nbsp;<a href="https://blog.csdn.net/luanlouis" rel="nofollow noopener noreferrer" target="_blank" data-from="10680" data-reader-unique-id="408">https://blog.csdn.net/luanlouis</a></p>
+<p data-reader-unique-id="390">&nbsp;</p>
+<p data-reader-unique-id="390"><span style="font-size: 18pt; color: rgba(255, 0, 0, 1)"><strong>最后小技巧PROPAGATION_NOT_SUPPORTED(仅仅为了让Spring能获取ThreadLocal的connection),</strong></span></p>
+<p data-reader-unique-id="390"><span style="font-size: 18pt; color: rgba(255, 0, 0, 1)"><strong>如果不使用事务,但是同一个方法多个对数据库操作,那么使用这个传播行为可以减少消耗数据库连接</strong></span></p>
+<p data-reader-unique-id="390">&nbsp;</p>
+</div>
+<div class="clear"></div>
+</span>
+              </li>
+              <div style="border: 1px solid #dfdfdf;border-top:none;"></div>
+              <li class="ul-li" style="padding-left:15px;padding-right: 15px;">
+
+                <b>相关阅读:</b><br>
+                <nobr>
+                  <a href="http://t.zoukankan.com/lgzh3-p-930481.html" target="_blank">定时刷新 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1894924.html" target="_blank">Codesmith生成oracle、mssql模版中的部分区别和基本功能备忘 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1886880.html" target="_blank">oracle使用中遇到的问题备忘 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1341491.html" target="_blank">存储过程内建临时表和临时函数，合并一个由存储过程返回的表 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1325750.html" target="_blank">烂MP3 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1882947.html" target="_blank">别人笑我太疯癫，我笑别人看不穿 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1343251.html" target="_blank">服务器被挂Iframe木马的解决方法(不是IIS映射修改，也不是ARP病毒,并且网页文件源代码里没有iframe代码的解决方法) </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1329335.html" target="_blank">随便记录下 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1354324.html" target="_blank">重构桌面飘着圣诞老人，利用策略模式和改造的代理模式让软件完全实现开闭原则，欢迎下载源代码分析 </a>
+                    <br><a href="http://t.zoukankan.com/Lawson-p-1896717.html" target="_blank">Nhibernate连接oracle数据库报 Could not compile the mapping document异常的解决方法 </a>
+                    <br>                </nobr>
+              </li>
+              <div style="border: 1px solid #dfdfdf;border-top:none;"></div>
+              <li class="list-group-item from-a mb-2" style="margin:15px;">
+                原文地址：https://www.cnblogs.com/shenjianxin/p/15378866.html
+              </li>
+
+            </ul>
+          </div>
+
+
+          <!-- 右侧开始 -->
+          <div class="right-kd" style="margin: auto;margin: 0px;float: left;">
+            <ul class="right-kd" style="word-break:break-all;border: 1px solid #dfdfdf;border-radius: 3px 3px 3px 3px;padding: 0px;margin: 0px;">
+              <li class="ul-li-bg ul-li-title" aria-current="true" style="padding-left:15px;padding-right: 15px;">
+                最新文章
+              </li>
+              <li class="ul-li" style="padding-left:15px;padding-right:15px;">
+                <nobr>
+                  <a href="http://t.zoukankan.com/blackbean-p-2014407.html" target="_blank">修改文件夹权限 </a>
+                    <br><a href="http://t.zoukankan.com/blackbean-p-2025134.html" target="_blank">扩展GridView全选功能 </a>
+                    <br><a href="http://t.zoukankan.com/blackbean-p-1986997.html" target="_blank">C# 判断中文字符（字符串）整理 </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970304.html" target="_blank">从零开始学算法：十种排序算法介绍（中） </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970302.html" target="_blank">java变量存在哪？java的“变量池” </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970307.html" target="_blank">WebService复杂类型数据传输(dom4j方式) </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970303.html" target="_blank">从零开始学算法：十种排序算法介绍（下） </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970305.html" target="_blank">从零开始学算法：十种排序算法介绍（上） </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970301.html" target="_blank">生产者与消费者问题（java多线程实现） </a>
+                    <br><a href="http://t.zoukankan.com/SunnyYue-p-3970308.html" target="_blank">读写cookie </a>
+                    <br>                </nobr>
+              </li>
+            </ul>
+
+            <ul class="right-kd" style="word-break:break-all;border: 1px solid #dfdfdf;border-radius: 3px 3px 3px 3px;padding: 0px;margin-top: 10px;">
+              <li class="list-group-item ul-li-bg ul-li-title" aria-current="true" style="padding-left:15px;padding-right: 15px;">
+                热门文章
+              </li>
+              <li class="ul-li" style="padding-left:15px;padding-right: 15px;">
+                <nobr>
+                  <a href="http://t.zoukankan.com/SunnyYue-p-3970306.html" target="_blank">SVN+eclipse的安装配置及使用 </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-907177.html" target="_blank">Tuxedo </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-1024103.html" target="_blank">ys.webforms.pagerequestmanagertimeoutexception </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-890224.html" target="_blank">串口 </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-992718.html" target="_blank">MapEase </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-890172.html" target="_blank">串口 </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-921931.html" target="_blank">Table表格横竖线实现Css </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-896039.html" target="_blank">windows服务编程 注册InstallUtil.exe </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-921054.html" target="_blank">DataList 分页功能 </a>
+                    <br><a href="http://t.zoukankan.com/lgzh3-p-875163.html" target="_blank">统计图 </a>
+                    <br>                </nobr>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <div style="clear: both;"></div>
+
+
+      <!-- 栅栏结束 -->
+
+      <div class="kd" style="margin: auto;">
+        <div style="font-size:0.8rem;margin: auto;text-align: center;padding: 10px;">
+          Copyright © 2011-2022&nbsp;走看看
+        </div>
+        <!-- 引入底部 -->
+        <!-- 百度自动推送js -->
+<script>
+  (function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https'){
+     bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+   }
+   else{
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- 百度自动推送js -->
+      </div>
+
+  </div>
+
+  <script src="./数据库连接，事务以及Java线程的关系 - 走看看_files/jquery-2.2.0.min.js.下载"></script>
+  <script src="./数据库连接，事务以及Java线程的关系 - 走看看_files/blog-common.min.js.下载"></script>
+  <script src="./数据库连接，事务以及Java线程的关系 - 走看看_files/encoder.js.下载"></script>
+
+  <script type="text/javascript">isPoped = true;</script>
+  <a href="http://t.zoukankan.com/shenjianxin-p-15378866.html" id="redirect_url"></a>
+  <a href="http://t.zoukankan.com/shenjianxin-p-15378866.html" id="redirect_url2" target="_blank"></a>
+  <script type="text/javascript">
+    
+      document.onclick = function()
+      {
+        if (!isPoped)
+        {       
+          document.getElementById("redirect_url").click();
+          document.getElementById("redirect_url2").click();
+                    isPoped = true;
+                  }
+      }
+    </script>
+
+
+</body></html>

@@ -1,0 +1,19 @@
+技术储备：
+
+设计模式，高并发，集合，数据结构与算法
+Spring+SpringMVC+Mybatis+SpringBoot
+Ribbon(整合OpenFegin)
+springcloudAlibaba:
+Nacos（注册中心+配置中心+服务治理）+Seata（分布式事务）+Sentinel（流量控制）+gateway（服务网关）
+
+中间件：
+redis（C语言编写）：缓存。红锁中，加锁的机器中，有一台或者多台宕机，加过锁的线程会怎么样？加过的锁会发生什么？
+kafka（scala语言编写）:
+RabbitMQ（Erlang语言编写）：消息队列
+rocketMQ（java语言编写）：消息队列
+Nginx：软件实现的负载均衡（集群）。
+
+MySql调优，JVM调优
+
+
+docker,k8s,sitio ,云基

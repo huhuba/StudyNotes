@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7ba7d392-8647-4168-92ce-e98c525d80fc" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/mybatisTest03/src/main/java/com/msb/mapper/EmpMapper.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/mybatisTest02/src/main/java/com/msb/mapper/EmpMapper2.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/mybatisTest02/src/main/java/com/msb/mapper/EmpMapper.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/mybatisTest03/src/main/resources/com/msb/mapper/EmpMapper.xml" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/program4it/maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\program4it\maven\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1pSnQ42NHTRu8Dx42YFZ7VRaoUd" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\java" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\java\com\msb\mapper" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest03\src\main\resources\com\msb\mapper" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest03\src\main\java\com\msb\mapper" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest02\src\main\resources\com\msb\mapper" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.msb.test" />
+      <recent name="com.msb.mapper" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\resources\com\msb\mapper" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\java\com\msb\mapper" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\java\com\msb\pojo" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest04\src\main\resources" />
+      <recent name="D:\ideaProjects\mybatisAll\mybatisTest03\src\main\resources\com\msb\mapper" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.Test3.testFindDeptByDetpno">
+    <configuration name="Test1.testFindByDetpno" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatisTest04" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.msb.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.msb.test" />
+      <option name="MAIN_CLASS_NAME" value="com.msb.test.Test1" />
+      <option name="METHOD_NAME" value="testFindByDetpno" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test1.testRemoveDept" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatisTest04" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.msb.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.msb.test" />
+      <option name="MAIN_CLASS_NAME" value="com.msb.test.Test1" />
+      <option name="METHOD_NAME" value="testRemoveDept" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test1.testUpdateDept" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatisTest04" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.msb.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.msb.test" />
+      <option name="MAIN_CLASS_NAME" value="com.msb.test.Test1" />
+      <option name="METHOD_NAME" value="testUpdateDept" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test2.testFindDeptByDetpno" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatisTest04" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.msb.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.msb.test" />
+      <option name="MAIN_CLASS_NAME" value="com.msb.test.Test2" />
+      <option name="METHOD_NAME" value="testFindDeptByDetpno" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test3.testFindDeptByDetpno" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mybatisTest04" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.msb.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.msb.test" />
+      <option name="MAIN_CLASS_NAME" value="com.msb.test.Test3" />
+      <option name="METHOD_NAME" value="testFindDeptByDetpno" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.Test3.testFindDeptByDetpno" />
+        <item itemvalue="JUnit.Test2.testFindDeptByDetpno" />
+        <item itemvalue="JUnit.Test1.testRemoveDept" />
+        <item itemvalue="JUnit.Test1.testFindByDetpno" />
+        <item itemvalue="JUnit.Test1.testUpdateDept" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7ba7d392-8647-4168-92ce-e98c525d80fc" name="Default Changelist" comment="" />
+      <created>1615185339197</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615185339197</updated>
+      <workItem from="1615185340484" duration="34000" />
+      <workItem from="1615185377719" duration="7864000" />
+      <workItem from="1615261306202" duration="15910000" />
+      <workItem from="1615290089918" duration="612000" />
+      <workItem from="1615348168807" duration="1967000" />
+      <workItem from="1615521955522" duration="4014000" />
+      <workItem from="1615527364685" duration="6515000" />
+      <workItem from="1615534805514" duration="834000" />
+      <workItem from="1615678269846" duration="1762000" />
+      <workItem from="1615695934417" duration="2296000" />
+      <workItem from="1615778618512" duration="3421000" />
+      <workItem from="1615798123784" duration="8717000" />
+      <workItem from="1615872470259" duration="2765000" />
+      <workItem from="1615945300356" duration="7218000" />
+      <workItem from="1615953647737" duration="53000" />
+      <workItem from="1616039320979" duration="389000" />
+      <workItem from="1616039907246" duration="3740000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>

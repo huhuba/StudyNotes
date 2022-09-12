@@ -1,0 +1,14 @@
+Spring Boot访问静态资源
+	在SpringBoot项目中没有我们之前常规web开发的WebContent(WebApp),
+它只有src目录。在 src/main/resources下面有两个文件夹，static和templates.
+SpringBoot默认在static目录中存放静态页面，而templates中放动态页面。
+1 static目录
+	Spring Boot通过classpath/static目录访问静态资源，注意存放静态资源的
+目录名称必须是static.
+2 templates 目录
+	在Spring Boot 中不推荐使用jsp作为视图层技术，而是默认使用Themeleaf来
+做动态页面。Templates 目录这是存放Thymeleaf 的页面。
+
+
+如果在IDEA中，项目结构为聚合工程，那么在运行jsp时，需要指定路径。
+如果项目结构为独立项目，则不需要
