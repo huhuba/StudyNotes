@@ -63,3 +63,16 @@ https://blog.csdn.net/Androidlushangderen/article/details/43564761
 
 **如果是增加客户端实例，不是造成更多的服务端redis锁被竞争吗？对于同一个资源锁，加入最终有一个客户端成功获得了大多数服务端的锁，那么对于其他的客户端来说获得的无效服务端锁不是更多吗（对于服务端来说，响应的无效锁的服务端更多了）,不也是浪费性能吗？**
 
+# 8.Hash环？一致性Hash？
+
+参考链接：https://www.cnblogs.com/macoffee/p/13375065.html
+
+# 9.Hash槽(slot)
+
+参考链接：https://blog.csdn.net/weixin_44688973/article/details/125441228
+
+10.redis中各个类型的存储结构
+
+https://baijiahao.baidu.com/s?id=1739547372042800800&wfr=spider&for=pc
+
+# 11.Hash槽中的多个Key是怎么存储的？
