@@ -44,7 +44,7 @@
 
 2. 新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
    1. 永久代 元数据 - Class
-   2. 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存）
+   2. 永久代 必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存）
    3. 字符串常量 1.7 - 永久代，1.8 - 堆
    4. MethodArea逻辑概念 - 永久代、元数据
    
@@ -407,7 +407,7 @@ total = eden + 1个survivor
 
 13. 使用MAT / jhat /jvisualvm 进行dump文件分析
      https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html 
-jhat -J-mx512M xxx.dump
+    jhat -J-mx512M xxx.dump
     http://192.168.17.11:7000
     拉到最后：找到对应链接
     可以使用OQL查找特定问题对象
@@ -677,7 +677,7 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 
 9. 重写finalize引发频繁GC
    小米云，HBase同步系统，系统通过nginx访问超时报警，最后排查，C++程序员重写finalize引发频繁GC问题
-为什么C++程序员会重写finalize？（new delete）
+   为什么C++程序员会重写finalize？（new delete）
    finalize耗时比较长（200ms）
    
 10. 如果有一个系统，内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
