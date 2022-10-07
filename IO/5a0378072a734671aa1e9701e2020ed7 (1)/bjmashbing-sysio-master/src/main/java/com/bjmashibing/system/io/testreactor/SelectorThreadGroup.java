@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @create: 2020-06-21 20:37
  */
 public class SelectorThreadGroup {  //天生都是boss
-
+    /** 封装  **/
     SelectorThread[] sts;
     ServerSocketChannel server=null;
     AtomicInteger xid = new AtomicInteger(0);
@@ -57,17 +57,17 @@ public class SelectorThreadGroup {  //天生都是boss
     public void nextSelectorV3(Channel c) {
 
         try {
-            if(c instanceof  ServerSocketChannel){
+            if(c instanceof  ServerSocketChannel){//Server端Socket
                 SelectorThread st = next();  //listen 选择了 boss组中的一个线程后，要更新这个线程的work组
                 st.lbq.put(c);
                 st.setWorker(stg);
                 st.selector.wakeup();
-            }else {
+            }else {//Client端  Socket
                 SelectorThread st = nextV3();  //在 main线程种，取到堆里的selectorThread对象
 
                 //1,通过队列传递数据 消息
                 st.lbq.add(c);
-                //2,通过打断阻塞，让对应的线程去自己在打断后完成注册selector
+                //2,通过打断阻塞，让对应的线程自己在打断后完成注册selector
                 st.selector.wakeup();
 
             }

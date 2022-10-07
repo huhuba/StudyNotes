@@ -71,7 +71,7 @@ public class SocketMultiplexingSingleThreadv1 {
                     //我前边可以强调过，socket：  listen   通信 R/W
                     while (iter.hasNext()) {
                         SelectionKey key = iter.next();
-                        iter.remove(); //set  不移除会重复循环处理
+                        iter.remove(); //set  不移除会重复循环处理.Q:为啥要删除，不删除不行吗？
                         if (key.isAcceptable()) {
                             //看代码的时候，这里是重点，如果要去接受一个新的连接
                             //语义上，accept接受连接且返回新连接的FD对吧？

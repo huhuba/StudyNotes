@@ -40,7 +40,7 @@ public class SocketMultiplexingSingleThreadv1_1 {
                     Iterator<SelectionKey> iter = selectionKeys.iterator();
                     while (iter.hasNext()) {
                         SelectionKey key = iter.next();
-                        iter.remove();
+                        iter.remove();//Q:为什么要删除？
                         if (key.isAcceptable()) {
                             acceptHandler(key);
                         } else if (key.isReadable()) {

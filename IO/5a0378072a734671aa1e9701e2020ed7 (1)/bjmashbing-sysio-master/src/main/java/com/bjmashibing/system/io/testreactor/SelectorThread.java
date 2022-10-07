@@ -32,11 +32,8 @@ public class SelectorThread  extends  ThreadLocal<LinkedBlockingQueue<Channel>> 
 
     SelectorThread(SelectorThreadGroup stg){
         try {
-
-
             this.stg = stg;
             selector = Selector.open();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,9 +56,9 @@ public class SelectorThread  extends  ThreadLocal<LinkedBlockingQueue<Channel>> 
                 if(nums>0){
                     Set<SelectionKey> keys = selector.selectedKeys();
                     Iterator<SelectionKey> iter = keys.iterator();
-                    while(iter.hasNext()){  //线程处理的过程
+                    while(iter.hasNext()){//线程处理的过程
                         SelectionKey key = iter.next();
-                        iter.remove();
+                        iter.remove();//Q:?
                         if(key.isAcceptable()){  //复杂,接受客户端的过程（接收之后，要注册，多线程下，新的客户端，注册到那里呢？）
                             acceptHandler(key);
                         }else if(key.isReadable()){
@@ -69,9 +66,6 @@ public class SelectorThread  extends  ThreadLocal<LinkedBlockingQueue<Channel>> 
                         }else if(key.isWritable()){
 
                         }
-
-
-
                     }
 
                 }

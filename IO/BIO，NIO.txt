@@ -1,0 +1,10 @@
+BIO慢的原因
+	1：accept阻塞->kernal，系统调用accept阻塞
+	2：read阻塞->kernal,系统调用accept阻塞
+	3：每一个client都用一个新的单独的线程来处理(因为read阻塞，所有创建一个新的线程去等待处理阻塞)，kernel  clone出一个线程(进程)，占用性能
+	3:操作jvm的堆内存，速度慢
+NIO:
+	1:accept不阻塞->kernal，系统调用accept不阻塞
+	2:read不阻塞->kernal，系统调用read不阻塞
+	3:不用每一个client都用一个新的单独的线程来处理，可以用少数的线程来处理所有的client。节约性能。
+	3:操作jvm的堆外内存(JVM管理之外的内存)	，速度快
