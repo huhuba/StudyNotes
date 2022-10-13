@@ -1,0 +1,32 @@
+1. master主服务器配置
+kubeadm init --kubernetes-version=v1.14.1 --pod-network-cidr=10.244.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl get nodes
+#查看存在问题的pod
+kubectl get pod --all-namespaces
+#设置全局变量
+#安装flannel网络组件
+kubectl create -f kube-flannel.yml
+
+
+
+2. 加入NODE节点
+kubeadm join 192.168.4.130:6443 --token 911xit.xkp2gfxbvf5wuqz7 \
+    --discovery-token-ca-cert-hash sha256:23db3094dc9ae1335b25692717c40e24b1041975f6a43da9f43568f8d0dbac72
+	
+如果忘记
+在master 上执行kubeadm token list 查看 ，在node上运行
+kubeadm join 192.168.163.132:6443 --token aoeout.9k0ybvrfy09q1jf6 --discovery-token-unsafe-skip-ca-verification
+
+kubectl get nodes
+
+3. Master开启仪表盘
+kubectl apply -f kubernetes-dashboard.yaml
+kubectl apply -f admin-role.yaml
+kubectl apply -f kubernetes-dashboard-admin.rbac.yaml
+kubectl -n kube-system get svc
+http://192.168.163.132:32000 访问

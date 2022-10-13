@@ -182,7 +182,7 @@
 
 每种垃圾回收器的日志格式是不同的！
 
-PS日志格式
+PS(Parallel Scavenge)日志格式
 
 ![GC日志详解](./GC日志详解.png)
 
@@ -691,8 +691,18 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
     解决方案：减少堆空间（太TMlow了）,预留更多内存产生native thread
     JVM内存占物理内存比例 50% - 80%
 
-
 ### GC常用参数
+
+TLAB，全称 Thread Local Allocation Buffer，即线程本地分配缓存。是一块 **线程专用** 的内存分配区域。TLAB 占用的是 *eden* 区的空间，在 TLAB 启用的情况下（默认开启），JVM 会为每一个线程分配一块私有缓存区域区域，即为 TLAB 内存区域。
+
+尽管不是所有的对象实例都能够在TLAB中成功分配内存，但JVM确实是将TLAB作为内存分配的首选。
+
+
+
+作者：CodingXu
+链接：https://www.jianshu.com/p/4d55691f17cc
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 * -Xmn -Xms -Xmx -Xss
   年轻代 最小堆 最大堆 栈空间

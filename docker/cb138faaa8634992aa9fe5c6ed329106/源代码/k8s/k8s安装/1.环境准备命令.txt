@@ -1,0 +1,19 @@
+1.  设置主机名与时区
+timedatectl set-timezone Asia/Shanghai  #都要执行
+hostnamectl set-hostname master   #132执行
+hostnamectl set-hostname node1    #133执行
+hostnamectl set-hostname node2    #137执行
+
+2. 添加hosts网络主机配置,三台虚拟机都要设置
+vim /etc/hosts
+192.168.163.132 master
+192.168.163.133 node1
+192.168.163.137 node2
+
+3. 关闭防火墙，三台虚拟机都要设置，生产环境跳过这一步
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+setenforce 0
+systemctl disable firewalld
+systemctl stop firewalld
+
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beiqin-db-service
+  labels: 
+    app: beiqin-db-service
+spec:
+  selector:
+    app: beiqin-db-deploy
+  ports:
+  - port: 3310
+    targetPort: 3306

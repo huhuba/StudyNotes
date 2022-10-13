@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: beiqin-app-deploy
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: beiqin-app-deploy
+    spec:
+      volumes:
+      - name : beqin-app-volume
+        hostPath:
+          path: /usr/local/beiqin-dist
+      containers:
+      - name: beiqin-app-deploy
+        image: openjdk:8u222-jre
+        command: ["/bin/sh"]
+        args: ["-c","cd /usr/local/beiqin-dist;java -jar beiqin-app.jar"]
+        volumeMounts:
+        - name: beqin-app-volume
+          mountPath: /usr/local/beiqin-dist

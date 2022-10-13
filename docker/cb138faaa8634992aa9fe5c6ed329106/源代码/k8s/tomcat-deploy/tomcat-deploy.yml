@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: tomcat-deploy
+spec:
+  replicas: 2 
+  template: 
+    metadata:
+      labels:
+        app: tomcat-cluster
+    spec:
+      volumes: 
+      - name: web-app
+        hostPath:
+          path: /mnt
+      containers:
+      - name: tomcat-cluster
+        image: tomcat:latest
+        resources:
+          requests:
+            cpu: 0.5
+            memory: 200Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: web-app
+          mountPath: /usr/local/tomcat/webapps
