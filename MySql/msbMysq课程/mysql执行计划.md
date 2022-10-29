@@ -49,7 +49,7 @@ explain select * from emp e join dept d on e.deptno = d.deptno join salgrade sg 
 
 **select_type**
 
-主要用来分辨查询的类型，是普通查询还是联合查询还是子查询
+主要用来分辨查询的类型，是普通查询还是联合查询还是子查询。
 
 | `select_type` Value  |                           Meaning                            |
 | :------------------: | :----------------------------------------------------------: |
@@ -133,14 +133,14 @@ explain select * from emp where emp.job in (select job from t_job);
 --ref_or_null：对于某个字段即需要关联条件，也需要null值的情况下，查询优化器会选择这种访问方式
 explain select * from emp e where  e.mgr is null or e.mgr=7369;
 
---ref：使用了非唯一性索引进行数据的查找
+--ref：使用了非唯一性索引(即普通索引)进行数据的查找
  create index idx_3 on emp(deptno);
  explain select * from emp e,dept d where e.deptno =d.deptno;
 
 --eq_ref ：使用唯一性索引进行数据查找
 explain select * from emp,emp2 where emp.empno = emp2.empno;
 
---const：这个表至多有一个匹配行，
+--const：这个列使用了主键索引或者唯一索引并且至多有一个匹配行
 explain select * from emp where empno = 7369;
  
 --system：表只有一行记录（等于系统表），这是const类型的特例，平时不会出现

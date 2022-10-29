@@ -133,6 +133,11 @@ public class SelectorThreadGroup {  //天生都是boss
 
 
     //无论 serversocket  socket  都复用这个方法
+
+    /**
+     *
+     * @return  返回一个SelectorThread
+     */
     private SelectorThread next() {
         int index = xid.incrementAndGet() % sts.length;  //轮询就会很尴尬，倾斜
         return sts[index];
@@ -142,6 +147,10 @@ public class SelectorThreadGroup {  //天生都是boss
         return sts[index+1];
     }
 
+    /**
+     *
+     * @return  返回一个SelectorThread
+     */
     private SelectorThread nextV3() {
         int index = xid.incrementAndGet() % stg.sts.length;  //动用worker的线程分配
         return stg.sts[index];

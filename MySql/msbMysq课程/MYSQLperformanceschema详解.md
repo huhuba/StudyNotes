@@ -2,7 +2,7 @@
 
 ### 0、performance_schema的介绍
 
-​		**MySQL的performance schema 用于监控MySQL server在一个较低级别的运行过程中的资源消耗、资源等待等情况**。
+​		**MySQL的performance schema(性能模式) 用于监控MySQL server在一个较低级别的运行过程中的资源消耗、资源等待等情况**。
 
 ​		特点如下：
 
@@ -96,7 +96,7 @@ show tables like '%setup%';
 UPDATE setup_instruments SET ENABLED = 'YES', TIMED = 'YES'where name like 'wait%';
 
 --打开等待事件的保存表配置开关，修改setup_consumers配置表中对应的配置项
-UPDATE setup_consumers SET ENABLED = 'YES'where name like '%wait%';
+UPDATE setup_consumers SET ENABLED = 'YES' where name like '%wait%';
 
 --当配置完成之后可以查看当前server正在做什么，可以通过查询events_waits_current表来得知，该表中每个线程只包含一行数据，用于显示每个线程的最新监视事件
 select * from events_waits_current\G
